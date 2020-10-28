@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://alex123:alex123@dev-social-media-cluste.x6tcc.mongodb.net/dev-social-media?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://alex123:alex123@dev-social-media-cluste.x6tcc.mongodb.net/dev-social-media?retryWrites=true&w=majority",
+    "jwtSecret": "secret-token-thingy"
 } 
