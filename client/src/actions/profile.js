@@ -11,6 +11,10 @@ import {
   GET_REPOS
 } from "./types";
 
+export const clearProfile = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+};
+
 // Get current user's profile
 export const getCurrentProfile = () => async dispatch => {
   try {
@@ -49,6 +53,10 @@ export const getProfiles = () => async dispatch => {
 
 // Get profile by id
 export const getProfileById = userId => async dispatch => {
+  dispatch({
+    type: CLEAR_PROFILE
+  });
+
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
@@ -59,7 +67,11 @@ export const getProfileById = userId => async dispatch => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status,
+        errorFetchingProfile: true
+      }
     });
   }
 };
@@ -76,7 +88,10 @@ export const getGithubRepos = username => async dispatch => {
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
     });
   }
 };

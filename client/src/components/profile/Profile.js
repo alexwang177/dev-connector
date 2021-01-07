@@ -8,17 +8,22 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
 import ProfileGithub from "./ProfileGithub";
-import { getProfileById } from "../../actions/profile";
+import { getProfileById, clearProfile } from "../../actions/profile";
 
 const Profile = ({
   getProfileById,
-  profile: { profile, loading },
+  clearProfile,
+  profile: { profile, loading, error },
   auth,
   match
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
+
+    return () => clearProfile();
   }, [getProfileById, match.params.id]);
+
+  if (error && error.errorFetchingProfile) return <div>Profile not found</div>;
 
   return (
     <Fragment>
@@ -92,4 +97,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileById, clearProfile })(
+  Profile
+);
