@@ -6,8 +6,13 @@ import {
   UPDATE_LIKES,
   DELETE_POST,
   ADD_POST,
-  GET_POST
+  GET_POST,
+  CLEAR_POSTS
 } from "./types";
+
+export const clearPosts = () => async dispatch => {
+  dispatch({ type: CLEAR_POSTS });
+};
 
 // Get posts
 export const getPosts = () => async dispatch => {

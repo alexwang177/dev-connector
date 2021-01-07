@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import PostItem from "../posts/PostItem";
-import { getPost } from "../../actions/post";
+import { getPost, clearPosts } from "../../actions/post";
 
-const Post = ({ getPost, post: { post, loading }, match }) => {
+const Post = ({ getPost, clearPosts, post: { post, loading }, match }) => {
   useEffect(() => {
     getPost(match.params.id);
+
+    return () => clearPosts();
   }, [getPost]);
 
   return loading || post === null ? (
@@ -32,4 +34,4 @@ const mapStateToProps = state => ({
   post: state.post
 });
 
-export default connect(mapStateToProps, { getPost })(Post);
+export default connect(mapStateToProps, { getPost, clearPosts })(Post);
